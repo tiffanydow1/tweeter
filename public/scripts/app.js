@@ -63,9 +63,9 @@ $('#tweet-form').on('submit', event => {
   const $errorMsg2 = $('<p>').text('Your tweet may not exceed 140 characters.');
 
   if (tweetLength.length === 0) {
-     $('#tweet-form').append($divError).append($errorMsg);
+     $(event.target).append($divError).append($errorMsg);
   } else if (tweetLength.length > 140) {
-     $('#tweet-form').append($divError).append($errorMsg2);
+     $(event.target).append($divError).append($errorMsg2);
     console.log('Your tweet may not exceed 140 characters.');
   } else {
   $.ajax({
@@ -74,7 +74,7 @@ $('#tweet-form').on('submit', event => {
     data: $(event.target).serialize(),
     success: function () {
       loadTweets();
-      $('textarea').val(null);
+      resetForm(event.target);
     }
   });
   }
@@ -89,6 +89,13 @@ function loadTweets() {
       $('textarea').val(null);
     }
   });
+}
+
+function resetForm(form) {
+
+  $('textarea').val(null);
+  $(form).find('.counter').text(140);
+
 }
 
 loadTweets();
