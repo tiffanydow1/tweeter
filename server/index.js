@@ -9,6 +9,7 @@ const app           = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+
 //Connect to Mongo DB
 const db            = require("mongodb").MongoClient;
 const MONGODB_URI   = "mongodb://localhost:27017/tweeter";
@@ -19,7 +20,9 @@ db.connect(MONGODB_URI, (err, db) => {
     throw err;
   }
 
+  //Connection to the 'Tweeter' database is live now
   console.log(`Connected to mongodb: ${MONGODB_URI}`);
+
 
   const DataHelpers = require('./lib/data-helpers.js')(db);
 
